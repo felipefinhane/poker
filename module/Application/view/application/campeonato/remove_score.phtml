@@ -1,0 +1,13 @@
+<div class="col-md-12">
+    <h1>Remover Pontuação do Campeonato</h1>
+    <form method="post" action="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'remove_score', 'id' => $objCampeonatoPontuacao->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoPontuacao->getIdCampeonatoPontuacao()]); ?>">
+        <div class="form-group">
+            <input type="hidden" name="id_campeonato_pontuacao" value="<?php echo $objCampeonatoPontuacao->getIdCampeonatoPontuacao(); ?>" />
+            <p class="alert alert-danger">Deseja realmente remover a pontuação "<strong><?php echo $objCampeonatoPontuacao->getCampeonato()->getTitulo();?></strong>" - Posição "<strong><?php echo $objCampeonatoPontuacao->getPosicao(); ?></strong>" ?</p>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Sim" class="btn btn-danger" />
+            <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonatoPontuacao->getCampeonato()->getIdCampeonato()]); ?>" class="btn btn-primary">Não</a>
+        </div>
+    </form>
+</div>

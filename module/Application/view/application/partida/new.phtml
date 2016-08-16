@@ -1,0 +1,37 @@
+<div class="col-md-12">
+    <h3>Nova Partida</h3>
+
+    <?php echo $this->form()->openTag($formPartida); ?>
+    <div class="form-group">
+        <label>Campeonato</label>
+        <?php
+        echo $this->formSelect($formPartida->get('campeonato'));
+        echo $this->formElementErrors()->render($formPartida->get('campeonato'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Data Início</label>
+        <?php
+        echo $this->formInput($formPartida->get('data_inicio'));
+        echo $this->formElementErrors()->render($formPartida->get('data_inicio'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Data Fim</label>
+        <?php
+        echo $this->formInput($formPartida->get('data_fim'));
+        echo $this->formElementErrors()->render($formPartida->get('data_fim'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <a href="<?php echo $this->url('listagem', ['controller' => 'partida']); ?>" class="btn btn-info">Voltar</a>
+        <?php
+        echo $this->formRow($formPartida->get('csrf'));
+        echo $this->formInput($formPartida->get('btn_submit'));
+        ?>
+    </div>
+    <?php echo $this->form()->closeTag($formPartida); ?>
+</div>

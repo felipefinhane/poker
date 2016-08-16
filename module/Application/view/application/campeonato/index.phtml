@@ -1,0 +1,37 @@
+<div class="col-md-12">
+
+    <div class="col-md-10">
+        <h1>Listar Campeonato</h1>
+    </div>
+
+    <div class="col-md-2 text-right">
+        <h1><a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'new')); ?>" class="btn btn-primary">Novo</a></h1>
+    </div>
+</div>
+<div class="col-md-12">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Título</th>
+                <th>Data Início</th>
+                <th>Data Fim</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->objCampeonatos as $objCampeonato): ?>
+                <tr>
+                    <td><?php echo $objCampeonato->getTitulo(); ?></td>
+                    <td><?php echo $objCampeonato->getDataInicio(); ?></td>
+                    <td><?php echo $objCampeonato->getDataFim(); ?></td>
+                    <td>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'ranking', 'id' => $objCampeonato->getIdCampeonato())); ?>" class="btn btn-success">Ranking</a>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'edit', 'id' => $objCampeonato->getIdCampeonato())); ?>" class="btn btn-info">Editar</a>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove', 'id' => $objCampeonato->getIdCampeonato())); ?>" class="btn btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+    <?php echo $this->paginationHelper($objCampeonatos, $qtdePorPagina, 'campeonato'); ?>
+</div>

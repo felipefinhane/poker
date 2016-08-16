@@ -1,0 +1,46 @@
+<div class="col-md-12">
+    <h3>Editar Usuário/Participante</h3>
+
+    <?php echo $this->form()->openTag($formUsuario); ?>
+    <div class="form-group">
+        <label>Nome</label>
+        <?php
+        echo $this->formInput($formUsuario->get('id_usuario')); 
+        echo $this->formInput($formUsuario->get('nome'));
+        echo $this->formElementErrors()->render($formUsuario->get('nome'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Email</label>
+        <?php
+        echo $this->formInput($formUsuario->get('email'));
+        echo $this->formElementErrors()->render($formUsuario->get('email'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Telefone</label>
+        <?php
+        echo $this->formInput($formUsuario->get('telefone'));
+        echo $this->formElementErrors()->render($formUsuario->get('telefone'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Senha</label>
+        <?php
+        echo $this->formInput($formUsuario->get('senha'));
+        echo $this->formElementErrors()->render($formUsuario->get('senha'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <a href="<?php echo $this->url('listagem', ['controller' => 'usuario']); ?>" class="btn btn-info">Voltar</a>
+        <?php
+        echo $this->formRow($formUsuario->get('csrf'));
+        echo $this->formInput($formUsuario->get('btn_submit'));
+        ?>
+    </div>
+    <?php echo $this->form()->closeTag($formUsuario); ?>
+</div>

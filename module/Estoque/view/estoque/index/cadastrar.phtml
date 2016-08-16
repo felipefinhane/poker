@@ -1,0 +1,38 @@
+<h1>Cadastrar Produto</h1>
+<!--<form method="post" action="\estoque\index\cadastrar">-->
+<?php echo $this->form()->openTag($form); ?>
+    <div class="form-group">
+        <label>Nome</label>
+        <?php echo $this->formInput($form->get('nome'));?>
+        <?php echo $this->formElementErrors()->render($form->get('nome'));?>
+        <!--<input type="text" name="nome" class="form-control" />-->
+    </div>
+
+    <div class="form-group">
+        <label>Preço</label>
+        <?php echo $this->formInput($form->get('preco'));?>
+        <?php echo $this->formElementErrors()->render($form->get('preco'));?>
+        <!--<input type="number" name="preco" class="form-control" />-->
+    </div>
+
+    <div class="form-group">
+        <label>Categoria</label>
+        <?php echo $this->formSelect($form->get('categoria'));?>
+        <?php echo $this->formElementErrors()->render($form->get('categoria'));?>
+        <!--<input type="number" name="preco" class="form-control" />-->
+    </div>
+
+    <div class="form-group">
+        <label>Descrição</label>
+        <?php echo $this->formTextarea($form->get('descricao'));?>
+        <?php echo $this->formElementErrors()->render($form->get('descricao'));?>
+        <!--<textarea name="descricao" class="form-control"></textarea>-->
+    </div>
+    
+    <div class="form-group">
+        <?php echo $this->formRow($form->get('csrf'));?>
+        <?php echo $this->formInput($form->get('btn_submit'));?>
+        <!--<input type="submit" value="Salvar" class="btn btn-primary"/>-->
+    </div>
+<?php echo $this->form()->closeTag($form); ;?>
+<!--</form>-->

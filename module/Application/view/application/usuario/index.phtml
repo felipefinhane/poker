@@ -1,0 +1,36 @@
+<div class="col-md-12">
+
+    <div class="col-md-10">
+        <h1>Listar Usuário/Participante</h1>
+    </div>
+
+    <div class="col-md-2 text-right">
+        <h1><a href="<?php echo $this->url('padrao', array('controller' => 'usuario', 'action' => 'new')); ?>" class="btn btn-primary">Novo</a></h1>
+    </div>
+</div>
+<div class="col-md-12">
+    <table class="table table-striped">
+        <thead>
+            <tr>
+                <th>Nome</th>
+                <th>Telefone</th>
+                <th>Email</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <?php foreach ($this->objUsuarios as $objUsuario): ?>
+                <tr>
+                    <td><?php echo $objUsuario->getNome(); ?></td>
+                    <td><?php echo $objUsuario->getTelefone(); ?></td>
+                    <td><?php echo $objUsuario->getEmail(); ?></td>
+                    <td>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'usuario', 'action' => 'edit', 'id' => $objUsuario->getIdUsuario())); ?>" class="btn btn-info">Editar</a>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'usuario', 'action' => 'remove', 'id' => $objUsuario->getIdUsuario())); ?>" class="btn btn-danger">Excluir</a>
+                    </td>
+                </tr>
+            <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
+<?php echo $this->paginationHelper($objUsuarios, $qtdePorPagina, 'usuario'); ?>

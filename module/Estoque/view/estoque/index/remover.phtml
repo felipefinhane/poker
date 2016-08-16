@@ -1,0 +1,7 @@
+<h1>Remover produto</h1>
+<form method="post" action="<?php echo $this->url('estoque_param', ['action'=> 'remover', 'id' => $produto->getId()]);?>">
+    <input type="hidden" name="id" value="<?php echo $produto->getId();?>" />
+    <p class="alert alert-danger">Deseja realmente remover o produto <strong><?php echo $produto->getNome();?></strong> da lista?</p>
+    <input type="submit" value="Sim" class="btn btn-danger" />
+    <a href="<?php echo $this->url('estoque');?>" class="btn btn-primary">Não</a>
+</form>

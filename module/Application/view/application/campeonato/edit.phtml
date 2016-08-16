@@ -1,0 +1,65 @@
+<div class="col-md-12">
+    <h3>Editar campeonato</h3>
+
+    <?php echo $this->form()->openTag($formCampeonato); ?>
+    <div class="form-group">
+        <label>Título</label>
+        <?php
+        echo $this->formInput($formCampeonato->get('id_campeonato'));
+        echo $this->formInput($formCampeonato->get('titulo'));
+        echo $this->formElementErrors()->render($formCampeonato->get('titulo'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Descrição</label>
+        <?php
+        echo $this->formInput($formCampeonato->get('descricao'));
+        echo $this->formElementErrors()->render($formCampeonato->get('descricao'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Valor da partida (Por participante)</label>
+        <?php
+        echo $this->formInput($formCampeonato->get('valor_partida'));
+        echo $this->formElementErrors()->render($formCampeonato->get('valor_partida'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Porcentagem do campeopnato (Premiação final)</label>
+        <?php
+        echo $this->formInput($formCampeonato->get('porcentagem_campeonato'));
+        echo $this->formElementErrors()->render($formCampeonato->get('porcentagem_campeonato'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Data Início</label>
+        <?php
+        echo $this->formInput($formCampeonato->get('data_inicio'));
+        echo $this->formElementErrors()->render($formCampeonato->get('data_inicio'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <label>Data Fim</label>
+        <?php
+        echo $this->formInput($formCampeonato->get('data_fim'));
+        echo $this->formElementErrors()->render($formCampeonato->get('data_fim'));
+        ?>
+    </div>
+
+    <div class="form-group">
+        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato']); ?>" class="btn btn-default">Voltar</a>
+        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-success">Pontuação</a>
+        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-info">Participantes</a>
+        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'games', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-warning">Partidas</a>
+        <?php
+        echo $this->formInput($formCampeonato->get('btn_submit')->setValue('Salvar Alterações'));
+        echo $this->formRow($formCampeonato->get('csrf'));
+        ?>
+    </div>
+    <?php echo $this->form()->closeTag($formCampeonato); ?>
+</div>

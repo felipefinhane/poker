@@ -1,0 +1,13 @@
+<div class="col-md-12">
+    <h1>Remover Campeonato</h1>
+    <form method="post" action="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'remove', 'id' => $objCampeonato->getIdCampeonato()]); ?>">
+        <div class="form-group">
+            <input type="hidden" name="id_campeonato" value="<?php echo $objCampeonato->getIdCampeonato(); ?>" />
+            <p class="alert alert-danger">Deseja realmente remover o Campeonato "<strong><?php echo $objCampeonato->getTitulo(); ?></strong>" ?</p>
+        </div>
+        <div class="form-group">
+            <input type="submit" value="Sim" class="btn btn-danger" />
+            <a href="<?php echo $this->url('listagem', ['controller' => 'campeonato']); ?>" class="btn btn-primary">Não</a>
+        </div>
+    </form>
+</div>
