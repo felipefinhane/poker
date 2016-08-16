@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 ZendSkeletonApplication
 =======================
 
@@ -79,4 +78,3 @@ project and you should be ready to go! It should look something like below:
 =======
 # poker
 Poker Management System
->>>>>>> b45d6aa71444a92da6f137c304ee11db7ecc6781
