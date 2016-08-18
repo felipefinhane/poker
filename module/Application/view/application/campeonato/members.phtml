@@ -25,7 +25,10 @@
         ?>
     </div>
     <div class="form-group align-top-25">
-        <a href="<?php echo $this->url('padrao', ['controller' => 'usuario', 'action' => 'new', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-success">Novo Usuário</a>
+<!--        <a href="--><?php //echo $this->url('padrao', ['controller' => 'usuario', 'action' => 'new', 'id' => $objCampeonato->getIdCampeonato()]); ?><!--" class="btn btn-success">Novo Usuário</a>-->
+        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">
+            Novo Usuário
+        </button>
     </div>
     <?php echo $this->form()->closeTag($formCampeonatoUsuario); ?>
 </div>
@@ -46,14 +49,14 @@
                 <td><?php echo $objCampeonatoUsuario->getStringTipo(); ?></td>
                 <td><?php echo $objCampeonatoUsuario->getStringStatus(); ?></td>
                 <td>
-                    <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove_member', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-danger">Excluir</a>
+                    <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove_member', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-danger btn-sm">Excluir</a>
                     <?php
                     if (($objCampeonatoUsuario->getAdministrador()) == 1) { ?>
-                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-warning">Remover Administrador</a>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-warning btn-sm">Remover Administrador</a>
                     <?php
                     } else {
                         ?>
-                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-info">Adicionar Administrador</a>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-info btn-sm">Adicionar Administrador</a>
                     <?php
                     } ?>
                 </td>
@@ -61,4 +64,58 @@
         <?php endforeach; ?>
         </tbody>
     </table>
+</div>
+
+<!-- Modal -->
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <?php echo $this->form()->openTag($formUsuario); ?>
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+                <h4 class="modal-title" id="myModalLabel">Novo Usuário/Participante</h4>
+            </div>
+            <div class="modal-body">
+                <div class="form-group">
+                    <label>Nome</label>
+                    <?php
+                    echo $this->formInput($formUsuario->get('nome'));
+                    echo $this->formElementErrors()->render($formUsuario->get('nome'));
+                    ?>
+                </div>
+
+                <div class="form-group">
+                    <label>Email</label>
+                    <?php
+                    echo $this->formInput($formUsuario->get('email'));
+                    echo $this->formElementErrors()->render($formUsuario->get('email'));
+                    ?>
+                </div>
+
+                <div class="form-group">
+                    <label>Telefone</label>
+                    <?php
+                    echo $this->formInput($formUsuario->get('telefone'));
+                    echo $this->formElementErrors()->render($formUsuario->get('telefone'));
+                    ?>
+                </div>
+
+                <div class="form-group">
+                    <label>Senha</label>
+                    <?php
+                    echo $this->formInput($formUsuario->get('senha'));
+                    echo $this->formElementErrors()->render($formUsuario->get('senha'));
+                    ?>
+                </div>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <?php
+                echo $this->formRow($formUsuario->get('csrf'));
+                echo $this->formInput($formUsuario->get('btn_submit'));
+                ?>
+            </div>
+            <?php echo $this->form()->closeTag($formUsuario); ?>
+        </div>
+    </div>
 </div>

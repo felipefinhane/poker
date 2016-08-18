@@ -195,6 +195,7 @@ class CampeonatoController extends AbstractActionController
         $id_campeonato = $this->params()->fromRoute("id", 0);
         $id_usuario = $this->params()->fromRoute("id_aux", 0);
 
+        $formUsuario = new \Application\Form\UsuarioForm();
         $formCampeonatoUsuario = new \Application\Form\CampeonatoUsuarioForm();
 
         $objCampeonato = $this->objManager->find("Application\Entity\Campeonato", $id_campeonato);
@@ -228,6 +229,7 @@ class CampeonatoController extends AbstractActionController
             'objCampeonato' => $objCampeonato,
             'objCampeonatoUsuarios' => $objCampeonatoUsuarios,
             'formCampeonatoUsuario' => $formCampeonatoUsuario,
+            'formUsuario' => $formUsuario,
         ]);
     }
 
