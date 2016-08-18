@@ -11,8 +11,7 @@ return array(
         'ZendDeveloperTools',
         'DoctrineModule',
         'DoctrineORMModule',
-        'Application',
-        'Estoque'
+        'Application'
     ),
     'module_listener_options' => array(
         'module_paths' => array(
