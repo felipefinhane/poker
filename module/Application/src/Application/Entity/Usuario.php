@@ -36,6 +36,11 @@ class Usuario {
      */
     private $telefone;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Application\Entity\CampeonatoUsuario", mappedBy="usuario")
+     */
+    private $campeonato_usuario;
+
     public function setIdUsuario($id_usuario) {
         $this->id_usuario = $id_usuario;
         return $this;

@@ -56,6 +56,11 @@ class Campeonato {
      */
     private $campeonato_pontuacao;
 
+    /**
+     * @ORM\OneToMany(targetEntity="Application\Entity\CampeonatoUsuario", mappedBy="campeonato")
+     */
+    private $campeonato_usuario;
+
     public function setIdCampeonato($id_campeonato) {
         $this->id_campeonato = $id_campeonato;
         return $this;

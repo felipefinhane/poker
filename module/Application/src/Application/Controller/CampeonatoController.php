@@ -6,16 +6,19 @@ use Application\Entity\CampeonatoPontuacao;
 use Zend\Mvc\Controller\AbstractActionController;
 use Zend\View\Model\ViewModel;
 
-class CampeonatoController extends AbstractActionController {
+class CampeonatoController extends AbstractActionController
+{
 
     private $objManager;
 
-    public function __construct(\Doctrine\Common\Persistence\ObjectManager $objManager) {
+    public function __construct(\Doctrine\Common\Persistence\ObjectManager $objManager)
+    {
         $this->objManager = $objManager;
         $this->layout()->setVariable('varController', 'campeonato');
     }
 
-    public function indexAction() {
+    public function indexAction()
+    {
         $pagina = $this->params()->fromRoute('page', 1);
         $qtdePorPagina = 6;
         $offset = ($pagina - 1) * $qtdePorPagina;
@@ -30,7 +33,8 @@ class CampeonatoController extends AbstractActionController {
         return new ViewModel($view_params);
     }
 
-    public function newAction() {
+    public function newAction()
+    {
         $formCampeonato = new \Application\Form\CampeonatoForm();
         $request = $this->getRequest();
         if ($request->isPost()) {
@@ -52,6 +56,10 @@ class CampeonatoController extends AbstractActionController {
             $this->objManager->persist($objCampeonato);
             $this->objManager->flush();
 
+            //@TODO: Realizar inserção do usuário criador como adminsitrador do Campeoanto.
+            $id_campeonato = $objCampeonato->getIdCampeonato();
+
+
             $this->flashMessenger()->addSuccessMessage("Campeonato Salvo com sucesso!");
 
             return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato']);
@@ -59,7 +67,8 @@ class CampeonatoController extends AbstractActionController {
         return new ViewModel(['formCampeonato' => $formCampeonato]);
     }
 
-    public function removeAction() {
+    public function removeAction()
+    {
         $id = $this->params()->fromRoute("id", 0);
         if ($this->request->isPost()) {
             $id = $this->request->getPost("id_campeonato");
@@ -75,7 +84,8 @@ class CampeonatoController extends AbstractActionController {
         return new ViewModel(['objCampeonato' => $objCampeonato]);
     }
 
-    public function editAction() {
+    public function editAction()
+    {
         $id = $this->params()->fromRoute("id", 0);
         $formCampeonato = new \Application\Form\CampeonatoForm();
         if ($this->request->isPost()) {
@@ -111,7 +121,8 @@ class CampeonatoController extends AbstractActionController {
         ]);
     }
 
-    public function scoresAction() {
+    public function scoresAction()
+    {
         $id_campeonato = $this->params()->fromRoute("id", 0);
         $id_campeonato_pontuacao = $this->params()->fromRoute("id_aux", 0);
 
@@ -124,10 +135,10 @@ class CampeonatoController extends AbstractActionController {
             $posicao = $this->request->getPost("posicao");
             $valor_pontuacao = $this->request->getPost("valor_pontuacao");
 
-            if($id_campeonato_pontuacao != ''){
+            if ($id_campeonato_pontuacao != '') {
                 $objCampeonatoPontuacao = $this->objManager->find('Application\Entity\CampeonatoPontuacao', $id_campeonato_pontuacao);
                 $this->flashMessenger()->addSuccessMessage("Alterações na pontuação do Campeonato foram salvas com sucesso!");
-            }else{
+            } else {
                 $objCampeonatoPontuacao = new CampeonatoPontuacao();
                 $this->flashMessenger()->addSuccessMessage("Pontuação do Campeonato  foi salva com sucesso!");
             }
@@ -138,20 +149,20 @@ class CampeonatoController extends AbstractActionController {
             $this->objManager->persist($objCampeonatoPontuacao);
             $this->objManager->flush();
 
-            return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' =>  $objCampeonato->getIdCampeonato()]);
+            return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()]);
         }
         $objPontuacoes = $this->objManager->getRepository('Application\Entity\CampeonatoPontuacao')
-                ->findBy(['campeonato' => $objCampeonato], ['posicao' => 'ASC']);
+            ->findBy(['campeonato' => $objCampeonato], ['posicao' => 'ASC']);
         $objPosicaoMax = $this->objManager->getRepository('Application\Entity\CampeonatoPontuacao')
             ->getMaxPosicao($id_campeonato);
         $posicaoMax = $objPosicaoMax[0]['posicao'];
 
-        if($id_campeonato_pontuacao > 0){
+        if ($id_campeonato_pontuacao > 0) {
             $objCampeonatoPontuacao = $this->objManager->find("Application\Entity\CampeonatoPontuacao", $id_campeonato_pontuacao);
             $formCampeonatoPontuacao->bind($objCampeonatoPontuacao);
-            $formPosicao  = $formCampeonatoPontuacao->get('btn_submit')->setValue('Alterar Pontuação');
-        }else{
-            $formPosicao  = $formCampeonatoPontuacao->get('posicao')->setValue($posicaoMax);
+            $formPosicao = $formCampeonatoPontuacao->get('btn_submit')->setValue('Alterar Pontuação');
+        } else {
+            $formPosicao = $formCampeonatoPontuacao->get('posicao')->setValue($posicaoMax);
             $formCampeonatoPontuacao->get('btn_new')->setAttribute('class', 'hide');
         }
         return new ViewModel([
@@ -162,7 +173,8 @@ class CampeonatoController extends AbstractActionController {
         ]);
     }
 
-    public function removeScoreAction(){
+    public function removeScoreAction()
+    {
         $id_campeonato_pontuacao = $this->params()->fromRoute("id_aux", 0);
         if ($this->request->isPost()) {
             $id_campeonato_pontuacao = $this->request->getPost("id_campeonato_pontuacao");
@@ -172,29 +184,30 @@ class CampeonatoController extends AbstractActionController {
             $this->objManager->flush();
 
             $this->flashMessenger()->addWarningMessage("O Campeonato {$strTituloCampeonatoPontuacao} foi removida!");
-            return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' =>  $objCampeonatoPontuacao->getCampeonato()->getIdCampeonato()]);
+            return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonatoPontuacao->getCampeonato()->getIdCampeonato()]);
         }
         $objCampeonatoPontuacao = $this->objManager->find('Application\Entity\CampeonatoPontuacao', $id_campeonato_pontuacao);
         return new ViewModel(['objCampeonatoPontuacao' => $objCampeonatoPontuacao]);
     }
 
-    public function membersAction(){
+    public function membersAction()
+    {
         $id_campeonato = $this->params()->fromRoute("id", 0);
         $id_usuario = $this->params()->fromRoute("id_aux", 0);
 
-//        $formCampeonatoParticipante = new \Application\Form\CampeonatoParticipanteForm();
+        $formCampeonatoUsuario = new \Application\Form\CampeonatoUsuarioForm();
 
-//        $objCampeonato = $this->objManager->find("Application\Entity\Campeonato", $id_campeonato);
+        $objCampeonato = $this->objManager->find("Application\Entity\Campeonato", $id_campeonato);
 
         if ($this->request->isPost()) {
             $id_campeonato_pontuacao = $this->request->getPost("id_campeonato_pontuacao");
             $posicao = $this->request->getPost("posicao");
             $valor_pontuacao = $this->request->getPost("valor_pontuacao");
 
-            if($id_campeonato_pontuacao != ''){
+            if ($id_campeonato_pontuacao != '') {
                 $objCampeonatoPontuacao = $this->objManager->find('Application\Entity\CampeonatoPontuacao', $id_campeonato_pontuacao);
                 $this->flashMessenger()->addSuccessMessage("Alterações na pontuação do Campeonato foram salvas com sucesso!");
-            }else{
+            } else {
                 $objCampeonatoPontuacao = new CampeonatoPontuacao();
                 $this->flashMessenger()->addSuccessMessage("Pontuação do Campeonato  foi salva com sucesso!");
             }
@@ -205,22 +218,16 @@ class CampeonatoController extends AbstractActionController {
             $this->objManager->persist($objCampeonatoPontuacao);
             $this->objManager->flush();
 
-            return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' =>  $objCampeonato->getIdCampeonato()]);
+            return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()]);
         }
 
-        if($id_campeonato_pontuacao > 0){
-            $objCampeonatoPontuacao = $this->objManager->find("Application\Entity\CampeonatoPontuacao", $id_campeonato_pontuacao);
-            $formCampeonatoPontuacao->bind($objCampeonatoPontuacao);
-            $formPosicao  = $formCampeonatoPontuacao->get('btn_submit')->setValue('Alterar Pontuação');
-        }else{
-            $formPosicao  = $formCampeonatoPontuacao->get('posicao')->setValue($posicaoMax);
-            $formCampeonatoPontuacao->get('btn_new')->setAttribute('class', 'hide');
-        }
+        $objCampeonatoUsuarios = $this->objManager->getRepository('Application\Entity\CampeonatoUsuario')
+            ->findBy(['campeonato' => $objCampeonato], ['usuario' => 'ASC']);
+
         return new ViewModel([
-            'posicaoMax' => $posicaoMax,
-            'objPontuacoes' => $objPontuacoes,
             'objCampeonato' => $objCampeonato,
-            'formCampeonatoPontuacao' => $formCampeonatoPontuacao,
+            'objCampeonatoUsuarios' => $objCampeonatoUsuarios,
+            'formCampeonatoUsuario' => $formCampeonatoUsuario,
         ]);
     }
 

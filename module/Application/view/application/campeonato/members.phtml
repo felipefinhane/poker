@@ -1,0 +1,64 @@
+<div class="col-md-12">
+    <div class="col-md-10 ph0">
+        <h1>Participantes do Campeonato</h1>
+        <h2><?php echo $objCampeonato->getTitulo(); ?></h2>
+    </div>
+    <div class="col-md-2 text-right ph0">
+        <h1>
+            <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'edit', 'id' => $objCampeonato->getIdCampeonato())); ?>"
+               class="btn btn-primary">Voltar</a></h1>
+    </div>
+</div>
+<div class="col-md-12">
+    <?php echo $this->form()->openTag($formCampeonatoUsuario);; ?>
+    <div class="form-group">
+        <label>Usuário</label>
+        <?php
+        echo $this->formInput($formCampeonatoUsuario->get('id_campeonato_usuario'));
+        echo $this->formInput($formCampeonatoUsuario->get('id_usuario'));
+        ?>
+    </div>
+    <div class="form-group align-top-25">
+        <?php
+        echo $this->formInput($formCampeonatoUsuario->get('btn_submit'));
+        echo $this->formRow($formCampeonatoUsuario->get('csrf'));
+        ?>
+    </div>
+    <div class="form-group align-top-25">
+        <a href="<?php echo $this->url('padrao', ['controller' => 'usuario', 'action' => 'new', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-success">Novo Usuário</a>
+    </div>
+    <?php echo $this->form()->closeTag($formCampeonatoUsuario); ?>
+</div>
+<div class="col-md-12">
+    <table class="table table-striped">
+        <thead>
+        <tr>
+            <th>Usuário</th>
+            <th>Tipo</th>
+            <th>Status</th>
+            <th>Ações</th>
+        </tr>
+        </thead>
+        <tbody>
+        <?php foreach ($objCampeonatoUsuarios as $objCampeonatoUsuario): ?>
+            <tr>
+                <td><?php echo $objCampeonatoUsuario->getUsuario()->getNome(); ?></td>
+                <td><?php echo $objCampeonatoUsuario->getStringTipo(); ?></td>
+                <td><?php echo $objCampeonatoUsuario->getStringStatus(); ?></td>
+                <td>
+                    <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove_member', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-danger">Excluir</a>
+                    <?php
+                    if (($objCampeonatoUsuario->getAdministrador()) == 1) { ?>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-warning">Remover Administrador</a>
+                    <?php
+                    } else {
+                        ?>
+                        <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-info">Adicionar Administrador</a>
+                    <?php
+                    } ?>
+                </td>
+            </tr>
+        <?php endforeach; ?>
+        </tbody>
+    </table>
+</div>
