@@ -1,4 +1,4 @@
-<div class="col-md-12">
+<div class="col-md-12  ph0">
     <h3>Editar campeonato</h3>
 
     <?php echo $this->form()->openTag($formCampeonato); ?>
@@ -51,15 +51,19 @@
         ?>
     </div>
 
-    <div class="form-group">
-        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato']); ?>" class="btn btn-default">Voltar</a>
-        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-success">Pontuação</a>
-        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-info">Participantes</a>
-        <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'games', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-warning">Partidas</a>
-        <?php
-        echo $this->formInput($formCampeonato->get('btn_submit')->setValue('Salvar Alterações'));
-        echo $this->formRow($formCampeonato->get('csrf'));
-        ?>
+    <div class="col-md-12 ph0">
+        <div class="col-md-6 form-group text-left ph0">
+            <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-success">Pontuação</a>
+            <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-info">Participantes</a>
+            <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato', 'action' => 'games', 'id' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-warning">Partidas</a>
+        </div>
+        <div class="col-md-6 form-group text-right ph0">
+            <a href="<?php echo $this->url('padrao', ['controller' => 'campeonato']); ?>" class="btn btn-default">Voltar</a>
+            <?php
+            echo $this->formInput($formCampeonato->get('btn_submit')->setValue('Salvar Alterações'));
+            echo $this->formRow($formCampeonato->get('csrf'));
+            ?>
+        </div>
     </div>
     <?php echo $this->form()->closeTag($formCampeonato); ?>
 </div>

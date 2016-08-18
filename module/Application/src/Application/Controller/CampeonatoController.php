@@ -190,6 +190,7 @@ class CampeonatoController extends AbstractActionController
         return new ViewModel(['objCampeonatoPontuacao' => $objCampeonatoPontuacao]);
     }
 
+
     public function membersAction()
     {
         $id_campeonato = $this->params()->fromRoute("id", 0);
@@ -233,4 +234,32 @@ class CampeonatoController extends AbstractActionController
         ]);
     }
 
+
+    public function addMembersAction()
+    {
+        $id_campeonato = $this->params()->fromRoute("id", 0);
+
+        $formUsuario = new \Application\Form\UsuarioForm();
+        $request = $this->getRequest();
+        if ($request->isPost()) {
+            $nome = $request->getPost("nome");
+            $telefone = $request->getPost("telefone");
+            $email = $request->getPost("email");
+            $senha = $request->getPost("senha");
+
+            $objUsuario = new \Application\Entity\Usuario();
+            $objUsuario->setNome($nome);
+            $objUsuario->setTelefone($telefone);
+            $objUsuario->setEmail($email);
+            $objUsuario->setSenha($senha);
+
+            $this->objManager->persist($objUsuario);
+            $this->objManager->flush();
+
+            $this->flashMessenger()->addSuccessMessage("Usuário/Participante Salvo com sucesso!");
+
+            return $this->redirect()->toRoute('padrao', ['controller' => 'usuario']);
+        }
+        return new ViewModel(['formUsuario' => $formUsuario]);
+    }
 }
