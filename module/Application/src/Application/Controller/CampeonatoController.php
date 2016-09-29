@@ -197,6 +197,9 @@ class CampeonatoController extends AbstractActionController
         $id_usuario = $this->params()->fromRoute("id_aux", 0);
 
         $formUsuario = new \Application\Form\UsuarioForm();
+
+        $formUsuario->setAttribute('action' , $this->url()->fromRoute('padrao', array('controller' => 'campeonato', 'action' => 'addMember', 'id' => $id_campeonato)));
+
         $formCampeonatoUsuario = new \Application\Form\CampeonatoUsuarioForm();
 
         $objCampeonato = $this->objManager->find("Application\Entity\Campeonato", $id_campeonato);
@@ -223,8 +226,10 @@ class CampeonatoController extends AbstractActionController
             return $this->redirect()->toRoute('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()]);
         }
 
-        $objCampeonatoUsuarios = $this->objManager->getRepository('Application\Entity\CampeonatoUsuario')
-            ->findBy(['campeonato' => $objCampeonato], ['usuario' => 'ASC']);
+//        $objCampeonatoUsuarios = $this->objManager->getRepository('Application\Entity\CampeonatoUsuario')
+//            ->findBy(['campeonato' => $objCampeonato]);
+
+        $objCampeonatoUsuarios = $this->objManager->getRepository("Application\Entity\CampeonatoUsuario")->getCampeonatoUsuarios($id_campeonato);
 
         return new ViewModel([
             'objCampeonato' => $objCampeonato,
@@ -235,10 +240,13 @@ class CampeonatoController extends AbstractActionController
     }
 
 
-    public function addMembersAction()
+    public function addMemberAction()
     {
         $id_campeonato = $this->params()->fromRoute("id", 0);
 
+        echo "<pre>";
+        var_dump($id_campeonato);
+        die();
         $formUsuario = new \Application\Form\UsuarioForm();
         $request = $this->getRequest();
         if ($request->isPost()) {

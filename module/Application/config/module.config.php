@@ -115,6 +115,7 @@ return array(
             'Application\Controller\Usuario'    => 'Application\Factory\UsuarioControllerFactory',
             'Application\Controller\Campeonato' => 'Application\Factory\CampeonatoControllerFactory',
             'Application\Controller\Partida'    => 'Application\Factory\PartidaControllerFactory',
+            'Application\Controller\Ajax'       => 'Application\Factory\AjaxControllerFactory',
         ),
     ),
     'view_helpers' => array(

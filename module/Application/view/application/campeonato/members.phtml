@@ -67,10 +67,13 @@
 </div>
 
 <!-- Modal -->
-<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true" data-keyboard="false" data-backdrop="static">
     <div class="modal-dialog">
         <div class="modal-content">
-            <?php echo $this->form()->openTag($formUsuario); ?>
+            <?php
+//            $formUsuario->setAttribute('action' , $this->url('padrao', array('controller' => 'campeonato', 'action' => 'addMember', 'id' => $objCampeonato->getIdCampeonato())));
+            echo $this->form()->openTag($formUsuario);
+            ?>
             <div class="modal-header">
                 <button type="button" class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
                 <h4 class="modal-title" id="myModalLabel">Novo Usuário/Participante</h4>
@@ -109,7 +112,7 @@
                 </div>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                <button type="button" class="btn btn-default" data-dismiss="modal">Cancelar</button>
                 <?php
                 echo $this->formRow($formUsuario->get('csrf'));
                 echo $this->formInput($formUsuario->get('btn_submit'));

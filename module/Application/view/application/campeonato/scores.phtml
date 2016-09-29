@@ -9,30 +9,30 @@
 </div>
 <div class="col-md-12">
     <!--<form class="form-inline" method="post" action="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove', 'id' => $objCampeonato->getIdCampeonato())); ?>">-->
-    <?php echo $this->form()->openTag($formCampeonatoPontuacao);; ?>
-        <div class="form-group">
-            <label>Posição</label>
-            <?php
-            echo $this->formInput($formCampeonatoPontuacao->get('id_campeonato_pontuacao'));
-            echo $this->formInput($formCampeonatoPontuacao->get('posicao'));
-            ?>
-        </div>
-        <div class="form-group">
-            <label>Valor pontuação</label>
-            <?php echo $this->formInput($formCampeonatoPontuacao->get('valor_pontuacao'));?>
-        </div>
-        <div class="form-group align-top-25">
-            <?php
-            echo $this->formInput($formCampeonatoPontuacao->get('btn_submit'));
-            echo $this->formRow($formCampeonatoPontuacao->get('csrf'));
-            ?>
-        </div>
-        <div class="form-group align-top-25">
+    <?php echo $this->form()->openTag($formCampeonatoPontuacao);?>
+    <div class="form-group">
+        <label>Posição</label>
         <?php
-            echo $this->formInput($formCampeonatoPontuacao->get('btn_new')->setAttribute('onClick',"parent.location='" . $this->url('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()])."'"));
-            ?>
-        </div>
-    <?php echo $this->form()->closeTag($formCampeonatoPontuacao); ?>
+        echo $this->formInput($formCampeonatoPontuacao->get('id_campeonato_pontuacao'));
+        echo $this->formInput($formCampeonatoPontuacao->get('posicao'));
+        ?>
+    </div>
+    <div class="form-group">
+        <label>Valor pontuação</label>
+<?php echo $this->formInput($formCampeonatoPontuacao->get('valor_pontuacao')); ?>
+    </div>
+    <div class="form-group align-top-25">
+        <?php
+        echo $this->formInput($formCampeonatoPontuacao->get('btn_submit'));
+        echo $this->formRow($formCampeonatoPontuacao->get('csrf'));
+        ?>
+    </div>
+    <div class="form-group align-top-25">
+        <?php
+        echo $this->formInput($formCampeonatoPontuacao->get('btn_new')->setAttribute('onClick', "parent.location='" . $this->url('padrao', ['controller' => 'campeonato', 'action' => 'scores', 'id' => $objCampeonato->getIdCampeonato()]) . "'"));
+        ?>
+    </div>
+<?php echo $this->form()->closeTag($formCampeonatoPontuacao); ?>
 </div>
 <div class="col-md-12">
     <table class="table table-striped">
@@ -44,14 +44,13 @@
             </tr>
         </thead>
         <tbody>
-            <?php foreach ($this->objPontuacoes as $objPontuacao): ?>
+<?php foreach ($this->objPontuacoes as $objPontuacao): ?>
                 <tr>
                     <td><?php echo $objPontuacao->getPosicao(); ?></td>
                     <td><?php echo $objPontuacao->getValorPontuacao(); ?></td>
                     <td>
                         <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'scores', 'id' => $objPontuacao->getCampeonato()->getIdCampeonato(), 'id_aux' => $objPontuacao->getIdCampeonatoPontuacao())); ?>" class="btn btn-info">Editar</a>
-                        <?php
-                        if (($posicaoMax-1) == $objPontuacao->getPosicao()){ ?>
+                        <?php if (($posicaoMax - 1) == $objPontuacao->getPosicao()) { ?>
                             <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove_score', 'id' => $objPontuacao->getCampeonato()->getIdCampeonato(), 'id_aux' => $objPontuacao->getIdCampeonatoPontuacao())); ?>" class="btn btn-danger">Excluir</a>
                         <?php } ?>
                     </td>
