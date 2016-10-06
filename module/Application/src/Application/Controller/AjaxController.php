@@ -5,18 +5,20 @@ namespace Application\Controller;
 use Zend\Mvc\Controller\AbstractActionController;
 use Doctrine\Common\Persistence\ObjectManager;
 
-class AjaxController extends AbstractActionController
-{
+class AjaxController extends AbstractActionController {
 
-    private $objManager;
+  private $objManager;
 
-    public function __construct(ObjectManager $objManager)
-    {
-        $this->objManager = $objManager;
-    }
+  public function __construct(ObjectManager $objManager) {
+    $this->objManager = $objManager;
+  }
 
-    public function addMember(){
+  public function addMember() {
+    
+  }
 
-    }
+  private function getMembers() {
+    
+  }
 
 }

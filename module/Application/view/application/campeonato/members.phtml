@@ -10,58 +10,63 @@
     </div>
 </div>
 <div class="col-md-12">
-    <?php echo $this->form()->openTag($formCampeonatoUsuario);; ?>
-    <div class="form-group">
-        <label>Usuário</label>
-        <?php
-        echo $this->formInput($formCampeonatoUsuario->get('id_campeonato_usuario'));
-        echo $this->formInput($formCampeonatoUsuario->get('id_usuario'));
-        ?>
+    <?php echo $this->form()->openTag($formCampeonatoUsuario); ?>
+    <div class="col-md-8 ph0">
+        <div class="form-group">
+            <label>Usuário</label>
+            <?php
+            echo $this->formInput($formCampeonatoUsuario->get('id_campeonato_usuario'));
+            echo $this->formInput($formCampeonatoUsuario->get('id_usuario'));
+            ?>
+        </div>
     </div>
-    <div class="form-group align-top-25">
-        <?php
-        echo $this->formInput($formCampeonatoUsuario->get('btn_submit'));
-        echo $this->formRow($formCampeonatoUsuario->get('csrf'));
-        ?>
+    <div class="col-md-2">
+        <div class="form-group button-m-top button-mobile-m-top align-top-25">
+            <?php
+            echo $this->formInput($formCampeonatoUsuario->get('btn_submit'));
+            echo $this->formRow($formCampeonatoUsuario->get('csrf'));
+            ?>
+        </div>
     </div>
-    <div class="form-group align-top-25">
-<!--        <a href="--><?php //echo $this->url('padrao', ['controller' => 'usuario', 'action' => 'new', 'id' => $objCampeonato->getIdCampeonato()]); ?><!--" class="btn btn-success">Novo Usuário</a>-->
-        <button class="btn btn-success" data-toggle="modal" data-target="#myModal">
-            Novo Usuário
-        </button>
+    <div class="col-md-2">
+        <div class="form-group button-m-top button-mobile-m-top align-top-25">
+            <!--<a href="--><?php //echo $this->url('padrao', ['controller' => 'usuario', 'action' => 'new', 'id' => $objCampeonato->getIdCampeonato()]);     ?><!--" class="btn btn-success">Novo Usuário</a>-->
+            <button class="btn btn-success" data-toggle="modal" data-target="#myModal">
+                Novo Usuário
+            </button>
+        </div>
     </div>
     <?php echo $this->form()->closeTag($formCampeonatoUsuario); ?>
 </div>
 <div class="col-md-12">
     <table class="table table-striped">
         <thead>
-        <tr>
-            <th>Usuário</th>
-            <th>Tipo</th>
-            <th>Status</th>
-            <th>Ações</th>
-        </tr>
+            <tr>
+                <th>Usuário</th>
+                <th>Tipo</th>
+                <th>Status</th>
+                <th>Ações</th>
+            </tr>
         </thead>
         <tbody>
-        <?php foreach ($objCampeonatoUsuarios as $objCampeonatoUsuario): ?>
-            <tr>
-                <td><?php echo $objCampeonatoUsuario->getUsuario()->getNome(); ?></td>
-                <td><?php echo $objCampeonatoUsuario->getStringTipo(); ?></td>
-                <td><?php echo $objCampeonatoUsuario->getStringStatus(); ?></td>
-                <td>
-                    <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove_member', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-danger btn-sm">Excluir</a>
-                    <?php
-                    if (($objCampeonatoUsuario->getAdministrador()) == 1) { ?>
+            <?php foreach ($objCampeonatoUsuarios as $objCampeonatoUsuario): ?>
+              <tr>
+                  <td><?php echo $objCampeonatoUsuario->getUsuario()->getNome(); ?></td>
+                  <td><?php echo $objCampeonatoUsuario->getStringTipo(); ?></td>
+                  <td><?php echo $objCampeonatoUsuario->getStringStatus(); ?></td>
+                  <td>
+                      <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove_member', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-danger btn-sm">Excluir</a>
+                      <?php if (($objCampeonatoUsuario->getAdministrador()) == 1) { ?>
                         <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-warning btn-sm">Remover Administrador</a>
-                    <?php
-                    } else {
+                        <?php
+                      } else {
                         ?>
                         <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'members', 'id' => $objCampeonatoUsuario->getCampeonato()->getIdCampeonato(), 'id_aux' => $objCampeonatoUsuario->getIdCampeonatoUsuario())); ?>" class="btn btn-info btn-sm">Adicionar Administrador</a>
-                    <?php
-                    } ?>
-                </td>
-            </tr>
-        <?php endforeach; ?>
+                      <?php }
+                      ?>
+                  </td>
+              </tr>
+            <?php endforeach; ?>
         </tbody>
     </table>
 </div>
@@ -86,7 +91,6 @@
                     echo $this->formElementErrors()->render($formUsuario->get('nome'));
                     ?>
                 </div>
-
                 <div class="form-group">
                     <label>Email</label>
                     <?php
@@ -94,7 +98,6 @@
                     echo $this->formElementErrors()->render($formUsuario->get('email'));
                     ?>
                 </div>
-
                 <div class="form-group">
                     <label>Telefone</label>
                     <?php
@@ -102,7 +105,6 @@
                     echo $this->formElementErrors()->render($formUsuario->get('telefone'));
                     ?>
                 </div>
-
                 <div class="form-group">
                     <label>Senha</label>
                     <?php
@@ -122,3 +124,22 @@
         </div>
     </div>
 </div>
+<?php
+$this->inlineScript()->captureStart();
+echo <<<JS
+  $(document).ready(function(){
+//EXEMPLO DE USO
+//    $('#id_usuario').attr('placeholder','Digite o nome de usuário para pesquisar');
+  });
+  var tags = [ "c++", "java", "php", "coldfusion", "javascript", "asp", "ruby" ];
+  $(".autocomplete").autocomplete({
+    source: function( request, response ) {
+            var matcher = new RegExp( "^" + $.ui.autocomplete.escapeRegex( request.term ), "i" );
+            response( $.grep( tags, function( item ){
+                return matcher.test( item );
+            }) );
+        }
+  });
+JS;
+$this->inlineScript()->captureEnd();
+?>

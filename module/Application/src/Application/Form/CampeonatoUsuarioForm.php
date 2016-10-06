@@ -25,7 +25,7 @@ class CampeonatoUsuarioForm extends Form{
             'type' => 'Text',
             'name' => 'id_usuario',
             'attributes' => [
-                'class' => 'form-control money',
+                'class' => 'form-control autocomplete',
                 'id' => 'id_usuario',
             ]
         ]);
