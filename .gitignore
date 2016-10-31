@@ -8,6 +8,8 @@ nbproject
 .settings
 composer.lock
 vendor/bin
+log/
+vendor/
 =======
 # Composer files
 composer.phar
