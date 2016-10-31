@@ -2,6 +2,8 @@
 
 namespace Application\Entity;
 
+use Doctrine\ORM\Mapping as ORM;
+
 /**
  * @ORM\Entity(repositoryClass="\Application\Entity\Repository\CampeonatoRepository")
  * @ORM\Table(name="campeonato")
