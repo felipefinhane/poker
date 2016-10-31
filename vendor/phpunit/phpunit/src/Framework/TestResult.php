@@ -827,13 +827,15 @@ class PHPUnit_Framework_TestResult implements Countable
                     $time
                 );
             } catch (MissingCoversAnnotationException $cce) {
-                $this->addFailure(
-                    $test,
-                    new PHPUnit_Framework_MissingCoversAnnotationException(
-                        'This test does not have a @covers annotation but is expected to have one'
-                    ),
-                    $time
-                );
+                if ($linesToBeCovered !== false) {
+                    $this->addFailure(
+                        $test,
+                        new PHPUnit_Framework_MissingCoversAnnotationException(
+                            'This test does not have a @covers annotation but is expected to have one'
+                        ),
+                        $time
+                    );
+                }
             } catch (CodeCoverageException $cce) {
                 $error = true;
 
@@ -854,7 +856,8 @@ class PHPUnit_Framework_TestResult implements Countable
         } elseif ($warning === true) {
             $this->addWarning($test, $e, $time);
         } elseif ($this->beStrictAboutTestsThatDoNotTestAnything &&
-                 $test->getNumAssertions() == 0) {
+                  !$test->doesNotPerformAssertions() &&
+                  $test->getNumAssertions() == 0) {
             $this->addFailure(
                 $test,
                 new PHPUnit_Framework_RiskyTestError(
