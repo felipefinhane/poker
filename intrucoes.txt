@@ -1,0 +1,4 @@
+Consertar erro do Randon
+https://github.com/remicollet/zend-math/commit/16291e8a59c5791518eaaa7007e024ff2baed788
+
+
