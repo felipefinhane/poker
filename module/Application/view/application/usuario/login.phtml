@@ -76,7 +76,7 @@
     <body>
         <div class="container">
 
-            <form name="frmLogin" id="frmLogin" method="post" action="<?php echo $this->url('login');?>" class="form-signin">
+            <form name="frmLogin" id="frmLogin" method="post" action="<?php echo $this->url('login'); ?>" class="form-signin">
                 <h2 class="form-signin-heading"><?php echo $this->translate('Please sign in'); ?></h2>
                 <label for="inputEmail" class="sr-only"><?php echo $this->translate('Email address or mobile number'); ?></label>
                 <input type="email" name="username" id="username" class="form-control" placeholder="<?php echo $this->translate('Email address or mobile number'); ?>" required autofocus>
@@ -84,7 +84,7 @@
                 <input type="password" name="password" id="password" class="form-control" placeholder="<?php echo $this->translate('Password'); ?>" required>
                 <button class="btn btn-lg btn-primary btn-block" type="submit"><?php echo $this->translate('Sign in'); ?></button>
             </form>
-
+            <?php echo $this->flashHelper(); ?>
         </div> <!-- /container -->
         <?php echo $this->inlineScript() ?>
     </body>

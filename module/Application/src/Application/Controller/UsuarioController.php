@@ -106,26 +106,20 @@ class UsuarioController extends AbstractActionController {
 //    }
     if ($this->request->isPost()) {
       $dados = $this->request->getPost();
-      echo "<pre>";
-      var_dump($dados);
-      die();
-//
-//      $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
-//
-//      $authAdapter = $authService->getAdapter();
-//      $authAdapter->setIdentityValue($dados['username']);
-//      $authAdapter->setCredentialValue($dados['password']);
-//
-//      $authResult = $authService->authenticate();
-//
-//
-//
-//      if ($authResult->isValid()) {
-//        return $this->redirect()->toUrl('/');
-//      } else {
-//        $this->flashMessenger()->addErrorMessage("Usuário ou Senha inválidos!");
-//        return $this->redirect()->toUrl('/login');
-//      }
+
+      $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
+
+      $authAdapter = $authService->getAdapter();
+      $authAdapter->setIdentity($dados['username']);
+      $authAdapter->setCredential($dados['password']);
+
+      $authResult = $authService->authenticate();
+      if ($authResult->isValid()) {
+        return $this->redirect()->toUrl('/');
+      } else {
+        $this->flashMessenger()->addErrorMessage("Usuário ou Senha inválidos!");
+        return $this->redirect()->toUrl('/login');
+      }
     }
     $viewModel = new ViewModel();
     $viewModel->setTerminal(true);
@@ -133,9 +127,10 @@ class UsuarioController extends AbstractActionController {
   }
 
   public function logoutAction() {
-    echo "<pre>";
-    var_dump("LOGOUT HERE");
-    die();
+    $authService = $this->getServiceLocator()->get('Zend\Authentication\AuthenticationService');
+    $authService->clearIdentity();
+    $this->flashMessenger()->addErrorMessage("Lougout!");
+    return $this->redirect()->toUrl('/login');
   }
 
 }

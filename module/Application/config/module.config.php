@@ -188,6 +188,17 @@ return array(
           'Application\Entity' => 'my_annotation_driver'
         )
       )
-    )
+    ),
+    'authentication' => [
+      'orm_default' => [
+        'object_manager' => 'Doctrine\ORM\EntityManager',
+        'identity_class' => 'Application\Entity\Usuario',
+        'identity_property' => 'email',
+        'credential_property' => 'senha',
+        'credentialCallable' => function($user, $password) {
+          return $user->getSenha() == sha1($password);
+        }
+      ]
+    ]
   )
 );
