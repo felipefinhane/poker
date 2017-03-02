@@ -38,7 +38,7 @@ class PartidaController extends AbstractActionController {
       $formPartida = new \Application\Form\PartidaForm($this->objManager);
       $request = $this->getRequest();
       $objCampeonato = $this->objManager->find("Application\Entity\Campeonato", $idCampeonato);
-      $objCampeonatoParticipantes = $this->objManager->getRepository("Application\Entity\CampeonatoUsuario")->getCampeonatoUsuarios($idCampeonato, true);
+      $objCampeonatoParticipantes = $this->objManager->getRepository("Application\Entity\CampeonatoUsuario")->getCampeonatoUsuarios($idCampeonato);
       $objPartidas = null;
       $formPartida->bind($objCampeonato);
       if ($request->isPost()) {

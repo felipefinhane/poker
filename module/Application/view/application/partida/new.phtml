@@ -27,7 +27,7 @@
         <?php foreach ($objCampeonatoParticipantes as $objCampeonatoParticipante): ?>
           <tr id=<?php echo $objCampeonatoParticipante->getUsuario()->getIdUsuario(); ?>>
             <td width="80%"><?php echo $objCampeonatoParticipante->getUsuario()->getNome(); ?></td>
-            <td><span class="btn btn-success btnIncricao" data-rel="1">INSCRITO</span></td>
+            <td><span class="btn btn-danger btnIncricao" data-rel="0">NÃO INSCRITO</span></td>
           </tr>
         <?php endforeach; ?>
       </tbody>
