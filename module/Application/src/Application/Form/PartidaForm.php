@@ -16,38 +16,19 @@ class PartidaForm extends Form {
             'name' => 'id_partida'
         ]);
 
-        //Field Campeonato
+        //Field id_campeonato
         $this->add([
-            'type' => 'DoctrineModule\Form\Element\ObjectSelect',
-            'name' => 'campeonato',
-            'options' => [
-                'object_manager' => $entityManager,
-                'target_class' => 'Application\Entity\Campeonato',
-                'property' => 'titulo',
-                'empty_option' => 'Escolha um campeonato'
-            ],
-            'attributes' => [
-                'class' => 'form-control'
-            ]
+            'type' => 'Hidden',
+            'name' => 'id_campeonato'
         ]);
 
         //Data Início
         $this->add([
             'type' => 'Date',
-            'name' => 'data_inicio',
+            'name' => 'data',
             'attributes' => [
                 'class' => 'form-control datepicker',
-                'id' => 'data_inicio',
-            ]
-        ]);
-
-        //Data Fim
-        $this->add([
-            'type' => 'Date',
-            'name' => 'data_fim',
-            'attributes' => [
-                'class' => 'form-control datepicker',
-                'id' => 'data_fim',
+                'id' => 'data',
             ]
         ]);
 

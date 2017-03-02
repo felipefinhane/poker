@@ -25,6 +25,7 @@
                     <td><?php echo $objCampeonato->getDataInicio(); ?></td>
                     <td><?php echo $objCampeonato->getDataFim(); ?></td>
                     <td>
+                        <a href="<?php echo $this->url('partida_campeonato', array('idCampeonato' => $objCampeonato->getIdCampeonato())); ?>" class="btn btn-warning">Partidas</a>
                         <a href="<?php echo $this->url('padrao', array('controller' => 'ranking', 'id' => $objCampeonato->getIdCampeonato())); ?>" class="btn btn-success">Ranking</a>
                         <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'edit', 'id' => $objCampeonato->getIdCampeonato())); ?>" class="btn btn-info">Editar</a>
                         <a href="<?php echo $this->url('padrao', array('controller' => 'campeonato', 'action' => 'remove', 'id' => $objCampeonato->getIdCampeonato())); ?>" class="btn btn-danger">Excluir</a>

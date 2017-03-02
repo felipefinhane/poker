@@ -1,41 +1,78 @@
 <div class="col-md-12">
-    <h3>Nova Partida</h3>
+  <h1>Nova Partida</h1>
+  <h3><?php echo $objCampeonato->getTitulo(); ?></h3>
 </div>
 <div class="col-md-12">
-    <?php echo $this->form()->openTag($formPartida); ?>
-    <div class="col-md-12 ph0">
-        <div class="form-group">
-            <label>Campeonato</label>
-            <?php
-            echo $this->formSelect($formPartida->get('campeonato'));
-            echo $this->formElementErrors()->render($formPartida->get('campeonato'));
-            ?>
-        </div>
+  <?php echo $this->form()->openTag($formPartida); ?>
+  <div class="col-md-2 ph0">
+    <div class="form-group">
+      <label>Data</label>
+      <?php
+      echo $this->formInput($formPartida->get('id_partida'));
+      echo $this->formInput($formPartida->get('id_campeonato'));
+      echo $this->formInput($formPartida->get('data'));
+      echo $this->formElementErrors()->render($formPartida->get('data'));
+      ?>
     </div>
-    <div class="col-md-12 ph0">
-        <table class="table table-striped">
-            <thead>
-                <tr>
-                    <th>PARTICIPANTE</th>
-                    <th>AÇÃO</th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr>
-                    <td>FELIPE</td>
-                    <td><button name="btnEliminado" id="btnEliminado" class="btn btn-danger" value="ELIMINADO" /></td>
-                </tr>
-            </tbody>
-        </table>
+  </div>
+  <div class="col-md-12 ph0">
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>PARTICIPANTE</th>
+          <th>AÇÃO</th>
+        </tr>
+      </thead>
+      <tbody>
+        <?php foreach ($objCampeonatoParticipantes as $objCampeonatoParticipante): ?>
+          <tr id=<?php echo $objCampeonatoParticipante->getUsuario()->getIdUsuario(); ?>>
+            <td width="80%"><?php echo $objCampeonatoParticipante->getUsuario()->getNome(); ?></td>
+            <td><span class="btn btn-success btnIncricao" data-rel="1">INSCRITO</span></td>
+          </tr>
+        <?php endforeach; ?>
+      </tbody>
+    </table>
+  </div>
+  <div class="col-md-12 ph0">
+    <div class="form-group">
+      <a href="<?php echo $this->url('partida_campeonato', ['idCampeonato' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-info">Voltar</a>
+      <?php
+      echo $this->formRow($formPartida->get('csrf'));
+      echo $this->formInput($formPartida->get('btn_submit'));
+      ?>
     </div>
-    <div class="col-md-12 ph0">
-        <div class="form-group">
-            <a href="<?php echo $this->url('listagem', ['controller' => 'partida']); ?>" class="btn btn-info">Voltar</a>
-            <?php
-            echo $this->formRow($formPartida->get('csrf'));
-            echo $this->formInput($formPartida->get('btn_submit'));
-            ?>
-        </div>
-    </div>
-    <?php echo $this->form()->closeTag($formPartida); ?>
+  </div>
+  <?php echo $this->form()->closeTag($formPartida); ?>
 </div>
+<?php
+$this->inlineScript()->captureStart();
+echo <<<JS
+$(function() {
+  $(".datepicker").datepicker({
+    dateFormat: 'dd/mm/yy',
+    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
+    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
+    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
+    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
+    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
+    nextText: 'Próximo',
+    prevText: 'Anterior'
+  });
+
+  $(".btnIncricao").on("click", function(){
+    if($(this).hasClass("btn-success")){
+      $(this).removeClass("btn-success");
+      $(this).addClass("btn-danger");
+      $(this).attr("data-rel", 0);
+      $(this).html("NÃO INSCRITO");
+    }else{
+      $(this).removeClass("btn-danger");
+      $(this).addClass("btn-success");
+      $(this).attr("data-rel", 1);
+      $(this).html("INSCRITO");
+    }
+  });
+});
+JS;
+$this->inlineScript()->captureEnd();
+?>

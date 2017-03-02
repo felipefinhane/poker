@@ -10,7 +10,7 @@ class MenuHelper extends AbstractHelper {
         $menuControllers = [
             'home' => $this->view->translate('home'),
             'campeonato' => $this->view->translate('Campeonato'),
-            'partida' => $this->view->translate('Partidas'),
+            // 'partida' => $this->view->translate('Partidas'),
             'usuario' => $this->view->translate('Participantes')
         ];
         $html = "<div class=\"collapse navbar-collapse\">"; 

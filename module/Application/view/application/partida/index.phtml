@@ -1,38 +1,37 @@
 <div class="col-md-12">
-
-    <div class="col-md-10">
-        <h1>Listar Partidas</h1>
-    </div>
-
-    <div class="col-md-2 text-right">
-        <h1><a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'new')); ?>" class="btn btn-primary">Novo</a></h1>
-    </div>
+  <div class="col-md-10">
+    <h1>Listar Partidas</h1>
+    <h3><?php echo $objCampeonato->getTitulo(); ?></h3>
+  </div>
+  <div class="col-md-2 text-right">
+  <h1><a href="<?php echo $this->url('partida_campeonato_new', ['idCampeonato' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-primary">Novo</a></h1>
+  </div>
 </div>
 <div class="col-md-12">
-    <table class="table table-striped">
-        <thead>
-            <tr>
-                <th>Partida</th>
-                <th>Campeonato</th>
-                <th>Data Início</th>
-                <th>Data Fim</th>
-                <th>Ações</th>
-            </tr>
-        </thead>
-        <tbody>
-            <?php foreach ($objPartidas as $objPartida): ?>
-                <tr>
-                    <td><?php echo $objPartida->getIdPartida(); ?></td>
-                    <td><?php echo $objPartida->getCampeonato()->getTitulo(); ?></td>
-                    <td><?php echo $objPartida->getDataInicio(); ?></td>
-                    <td><?php echo $objPartida->getDataFim(); ?></td>
-                    <td>
-                        <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'edit', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-info">Editar</a>
-                        <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'remove', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-danger">Excluir</a>
-                    </td>
-                </tr>
-            <?php endforeach; ?>
-        </tbody>
-    </table>
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Partida</th>
+        <th>Participantes</th>
+        <th>Vencedor</th>
+        <th>Data</th>
+        <th>Ações</th>
+      </tr>
+    </thead>
+    <tbody>
+      <?php foreach ($objPartidas as $objPartida): ?>
+        <tr>
+          <td><?php echo $objPartida->getIdPartida(); ?></td>
+          <td>X</td>
+          <td>Xxxxxx Xxxxxxx</td>
+          <td><?php echo $objPartida->getDataInicio(); ?></td>
+          <td>
+            <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'edit', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-info">Editar</a>
+            <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'remove', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-danger">Excluir</a>
+          </td>
+        </tr>
+      <?php endforeach; ?>
+    </tbody>
+  </table>
 </div>
 <?php echo $this->paginationHelper($objPartidas, $qtdePorPagina, 'partida'); ?>
