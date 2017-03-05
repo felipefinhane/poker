@@ -32,6 +32,15 @@ class PartidaForm extends Form {
             ]
         ]);
 
+        //JSON DE PARTICIPANTES
+        $this->add([
+            'type' => 'Hidden',
+            'name' => 'participantes',
+            'attributes' => [
+                'id' => 'participantes',
+            ]
+        ]);
+
         $this->add([
             'type' => 'Submit',
             'name' => 'btn_submit',

@@ -28,18 +28,23 @@ class Partida {
    */
   private $campeonato;
 
+  /**
+   * @ORM\OneToMany(targetEntity="Application\Entity\PartidaUsuarios", mappedBy="partida")
+   */
+  private $participantes;
+
   public function getIdPartida() {
     return $this->id_partida;
-  }
-
-  public function getData() {
-    return $this->data;
   }
 
   public function setData($data) {
     $data = \DateTime::createFromFormat('j/m/Y', $data);
     $this->data = new \DateTime(date('Y-m-d H:i:s', strtotime($data->format('Y-m-d'))));
     return $this;
+  }
+
+  public function getData() {
+    return $this->data->format('d/m/Y');
   }
 
   public function getCampeonato() {
@@ -50,5 +55,14 @@ class Partida {
     $this->campeonato = $campeonato;
     return $this;
   }
+
+
+  public function getArrayCopy() {
+    return [
+      'id_partida' => $this->id_partida,
+      'data'       => $this->getData()
+    ];
+  }
+
 
 }

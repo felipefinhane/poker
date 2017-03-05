@@ -24,7 +24,7 @@
           <td><?php echo $objPartida->getIdPartida(); ?></td>
           <td>X</td>
           <td>Xxxxxx Xxxxxxx</td>
-          <td><?php echo $objPartida->getDataInicio(); ?></td>
+          <td><?php echo $objPartida->getData(); ?></td>
           <td>
             <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'edit', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-info">Editar</a>
             <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'remove', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-danger">Excluir</a>

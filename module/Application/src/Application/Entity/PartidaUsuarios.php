@@ -6,7 +6,7 @@ use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Entity
- * @ORM\Table(name="partida_usuarios")
+ * @ORM\Table(name="partida_usuario")
  */
 class PartidaUsuarios {
 
@@ -25,7 +25,7 @@ class PartidaUsuarios {
 
   /**
    * @ORM\ManyToOne(targetEntity="CampeonatoUsuario", inversedBy="partida_participante")
-   * @ORM\JoinColumn(name="id_campeonato_usuario",referencedColumnName="id_usuario", nullable=false)
+   * @ORM\JoinColumn(name="id_campeonato_usuario",referencedColumnName="id_campeonato_usuario", nullable=false)
    */
   private $participante;
 
@@ -41,41 +41,30 @@ class PartidaUsuarios {
 
   /**
    * @ORM\ManyToOne(targetEntity="CampeonatoUsuario", inversedBy="partida_carrasco")
-   * @ORM\JoinColumn(name="id_campeonato_usuario",referencedColumnName="id_usuario_carrasco", nullable=true)
+   * @ORM\JoinColumn(name="id_usuario_carrasco",referencedColumnName="id_campeonato_usuario", nullable=true)
    */
   private $carrasco;
-  public function getId_partida_usuario() {
+
+  public function getIdPartidaUsuario() {
     return $this->id_partida_usuario;
   }
 
-  public function getId_partida() {
-    return $this->id_partida;
-  }
-
-  public function getParticipante() {
-    return $this->participante;
-  }
-
-  public function getPago() {
-    return $this->pago;
-  }
-
-  public function getPosicao() {
-    return $this->posicao;
-  }
-
-  public function getCarrasco() {
-    return $this->carrasco;
-  }
-
-  public function setId_partida_usuario($id_partida_usuario) {
+  public function setIdPartidaUsuario($id_partida_usuario) {
     $this->id_partida_usuario = $id_partida_usuario;
     return $this;
   }
 
-  public function setId_partida($id_partida) {
-    $this->id_partida = $id_partida;
+  public function getPartida() {
+    return $this->partida;
+  }
+
+  public function setPartida($partida) {
+    $this->partida = $partida;
     return $this;
+  }
+
+  public function getParticipante() {
+    return $this->participante;
   }
 
   public function setParticipante($participante) {
@@ -83,14 +72,26 @@ class PartidaUsuarios {
     return $this;
   }
 
+  public function getPago() {
+    return $this->pago;
+  }
+
   public function setPago($pago) {
     $this->pago = $pago;
     return $this;
   }
 
+  public function getPosicao() {
+    return $this->posicao;
+  }
+
   public function setPosicao($posicao) {
     $this->posicao = $posicao;
     return $this;
+  }
+
+  public function getCarrasco() {
+    return $this->carrasco;
   }
 
   public function setCarrasco($carrasco) {

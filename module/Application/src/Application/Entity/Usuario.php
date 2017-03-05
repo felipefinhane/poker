@@ -115,7 +115,7 @@ class Usuario {
       'email' => $this->email,
       'telefone' => $this->telefone,
       'senha' => $this->senha,
-      'status' => $this->status, s
+      'status' => $this->status,
     ];
   }
 
