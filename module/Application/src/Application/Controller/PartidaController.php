@@ -26,7 +26,11 @@ class PartidaController extends AbstractActionController {
     $view_params = array(
       'qtdePorPagina' => $qtdePorPagina,
       'objCampeonato' => $objCampeonato,
-      'objPartidas' => $objPartidas
+      'objPartidas' => $objPartidas,
+      'customUrl' => [
+        'name' => 'partida_campeonato',
+        'param' => ['idCampeonato' => $idCampeonato]
+      ]
       );
 
     return new ViewModel($view_params);
@@ -37,7 +41,7 @@ class PartidaController extends AbstractActionController {
     if(!is_null($idCampeonato)){
       $formPartida = new \Application\Form\PartidaForm($this->objManager);
       $request = $this->getRequest();
-      
+
       $objCampeonato = $this->objManager->find("Application\Entity\Campeonato", $idCampeonato);
       $objCampeonatoParticipantes = $this->objManager->getRepository("Application\Entity\CampeonatoUsuario")->getCampeonatoUsuarios($idCampeonato);
       $objPartidas = null;
