@@ -22,8 +22,8 @@
       <?php foreach ($objPartidas as $objPartida): ?>
         <tr>
           <td><?php echo $objPartida->getIdPartida(); ?></td>
-          <td>X</td>
-          <td>Xxxxxx Xxxxxxx</td>
+          <td><?php echo $objPartida->getTotalParticipantes(); ?></td>
+          <td><?php echo $objPartida->getParticipanteVencedor(); ?></td>
           <td><?php echo $objPartida->getData(); ?></td>
           <td>
             <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'edit', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-info">Editar</a>

@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity(repositoryClass="\Application\Entity\Repository\PartidaRepository")
  * @ORM\Table(name="partida")
  */
+
 class Partida {
 
   /**
@@ -33,6 +34,10 @@ class Partida {
    */
   private $participantes;
 
+  private $totalParticipantes= "N/A";
+
+  private $participanteVendedor = "N/A";
+
   public function getIdPartida() {
     return $this->id_partida;
   }
@@ -56,7 +61,6 @@ class Partida {
     return $this;
   }
 
-
   public function getArrayCopy() {
     return [
       'id_partida' => $this->id_partida,
@@ -64,5 +68,12 @@ class Partida {
     ];
   }
 
+  public function getTotalParticipantes(){
+    return $this->totalParticipantes;
+  }
+
+  public function getParticipanteVencedor(){
+    return $this->participanteVendedor;
+  }
 
 }

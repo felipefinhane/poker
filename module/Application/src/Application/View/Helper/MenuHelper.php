@@ -8,13 +8,12 @@ class MenuHelper extends AbstractHelper {
 
     public function __invoke($controllerActive = 'home') {
         $menuControllers = [
-            'home' => $this->view->translate('home'),
             'campeonato' => $this->view->translate('Campeonato'),
-            // 'partida' => $this->view->translate('Partidas'),
             'usuario' => $this->view->translate('Participantes')
         ];
         $html = "<div class=\"collapse navbar-collapse\">"; 
         $html .= "    <ul class=\"nav navbar-nav\">"; 
+        $html .= "      <li class=\"active\"><a href=\"{$this->view->url('home')}\">Dashboard</a></li>"; 
         foreach ($menuControllers as $key => $menu) {
             $strClass = ($key == $controllerActive) ? 'class="active"' : '';
             $html .= "<li {$strClass}><a href=\"{$this->view->url('padrao', ['controller' => $key])}\">{$menu}</a></li>"; 

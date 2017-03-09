@@ -8,6 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Entity
  * @ORM\Table(name="partida_usuario")
  */
+
 class PartidaUsuarios {
 
 	/**
@@ -18,19 +19,19 @@ class PartidaUsuarios {
   private $id_partida_usuario;
 
   /**
-   * @ORM\ManyToOne(targetEntity="Partida", inversedBy="participantes")
+   * @ORM\ManyToOne(targetEntity="Application\Entity\Partida", inversedBy="participantes")
    * @ORM\JoinColumn(name="id_partida",referencedColumnName="id_partida", nullable=false)
    */
   private $partida;
 
   /**
-   * @ORM\ManyToOne(targetEntity="CampeonatoUsuario", inversedBy="partida_participante")
-   * @ORM\JoinColumn(name="id_campeonato_usuario",referencedColumnName="id_campeonato_usuario", nullable=false)
-   */
+  * @ORM\ManyToOne(targetEntity="Application\Entity\CampeonatoUsuario", inversedBy="partida_participante")
+  * @ORM\JoinColumn(name="id_campeonato_usuario",referencedColumnName="id_campeonato_usuario", nullable=false)
+  */
   private $participante;
 
   /**
-   * @ORM\Column(type="integer")
+   * @ORM\Column(type="integer", options={"default"=0})
    */
   private $pago;
 
@@ -40,9 +41,9 @@ class PartidaUsuarios {
   private $posicao;
 
   /**
-   * @ORM\ManyToOne(targetEntity="CampeonatoUsuario", inversedBy="partida_carrasco")
-   * @ORM\JoinColumn(name="id_usuario_carrasco",referencedColumnName="id_campeonato_usuario", nullable=true)
-   */
+  * @ORM\ManyToOne(targetEntity="Application\Entity\CampeonatoUsuario", inversedBy="partida_carrasco")
+  * @ORM\JoinColumn(name="id_campeonato_usuario_carrasco",referencedColumnName="id_campeonato_usuario", nullable=true)
+  */
   private $carrasco;
 
   public function getIdPartidaUsuario() {
@@ -98,6 +99,5 @@ class PartidaUsuarios {
     $this->carrasco = $carrasco;
     return $this;
   }
-
 
 }

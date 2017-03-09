@@ -52,29 +52,18 @@ class PartidaController extends AbstractActionController {
         $objPartida = new \Application\Entity\Partida();
         $objPartida->setData($data);
         $objPartida->setCampeonato($objCampeonato);
-        $this->objManager->persist($objPartida);
-        $this->objManager->flush();
-        $this->objManager->clear();
-
-
         //INSERIR PARTICIPANTES
         $jsonParticipantes = $request->getPost("participantes");
         $arrParticipantes = json_decode($jsonParticipantes);
 
-        $batchSize = 20;
         foreach ($arrParticipantes as $i => $participante) {
           $objPartidaUsuarios = new \Application\Entity\PartidaUsuarios();
-          $objPartidaUsuarios->setPartida($objPartida);
           $objCampeonatoParticipante = $this->objManager->find("Application\Entity\CampeonatoUsuario", $participante);
           $objPartidaUsuarios->setParticipante($objCampeonatoParticipante);
+          $objPartidaUsuarios->setPartida($objPartida);
           $this->objManager->persist($objPartidaUsuarios);
-
-          // flush everything to the database every 20 inserts
-          if (($i % $batchSize) == 0) {
-            $this->objManager->flush();
-            $this->objManager->clear();
-          }
         }
+        $this->objManager->persist($objPartida);
         // flush the remaining objects
         $this->objManager->flush();
         $this->objManager->clear();

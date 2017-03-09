@@ -12,16 +12,18 @@ class PartidaRepository extends EntityRepository {
         
         $queryBuilder = $em->createQueryBuilder();
         $queryBuilder->select('p')
+                // ->addSelect('COUNT(pu.id_partida_usuario) AS totalParticipantes')
                 ->from('Application\Entity\Partida', 'p')
                 ->innerJoin('p.campeonato', 'c')
+                ->innerJoin('p.participantes', 'pu')
                 ->where('c.id_campeonato = :idCampeonato')
                 ->setParameter('idCampeonato', $idCampeonato)
                 ->setMaxResults($qtdePorPagina)
                 ->setFirstResult($offset)
-                ->orderBy('p.data','DESC');
+                ->orderBy('p.data','DESC')
+                ->groupBy('p.id_partida');
         
         $query = $queryBuilder->getQuery();
-        
         $paginator = new Paginator($query);
         return $paginator;
     }
