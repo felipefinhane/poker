@@ -5,7 +5,7 @@ namespace Application\Entity;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="\Application\Entity\Repository\PartidaUsuariosRepository")
  * @ORM\Table(name="partida_usuario")
  */
 
@@ -55,6 +55,9 @@ class PartidaUsuarios {
     return $this;
   }
 
+  /**
+  * @return mixed
+  */
   public function getPartida() {
     return $this->partida;
   }
@@ -64,6 +67,9 @@ class PartidaUsuarios {
     return $this;
   }
 
+  /**
+  * @return mixed
+  */
   public function getParticipante() {
     return $this->participante;
   }
@@ -98,6 +104,17 @@ class PartidaUsuarios {
   public function setCarrasco($carrasco) {
     $this->carrasco = $carrasco;
     return $this;
+  }
+
+  public function getArrayCopy(){
+    return [
+      'id_partida_usuario' => $this->id_partida_usuario,
+      'partida' => $this->partida,
+      'participante' => $this->participante,
+      'pago' => $this->pago,
+      'posicao' => $this->posicao,
+      'carrasco' => $this->carrasco
+    ];
   }
 
 }

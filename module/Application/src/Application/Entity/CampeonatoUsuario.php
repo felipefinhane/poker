@@ -163,10 +163,14 @@ class CampeonatoUsuario
     return $strStatus;
   }
 
+  public function getPartidaParticipante(){
+    return $this->partida_participante;
+  }
+
 
   public function getArrayCopy(){
     return [
-    '$id_campeonato_usuario' => $this->id_campeonato_usuario,
+    'id_campeonato_usuario' => $this->id_campeonato_usuario,
     'usuario' => $this->usuario,
     'campeonato' => $this->campeonato,
     'administrador' => $this->administrador,

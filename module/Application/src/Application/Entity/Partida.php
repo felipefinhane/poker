@@ -68,6 +68,10 @@ class Partida {
     ];
   }
 
+  public function getParticipantes(){
+    return $this->participantes;
+  }
+
   public function getTotalParticipantes(){
     return $this->totalParticipantes;
   }

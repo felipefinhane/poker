@@ -23,9 +23,10 @@
         <tr>
           <td><?php echo $objPartida->getIdPartida(); ?></td>
           <td><?php echo $objPartida->getTotalParticipantes(); ?></td>
-          <td><?php echo $objPartida->getParticipanteVencedor(); ?></td>
+          <td><?php //echo $objPartida->getParticipantes(); ?></td>
           <td><?php echo $objPartida->getData(); ?></td>
           <td>
+            <a href="<?php echo $this->url('partida_campeonato_manage', ['idCampeonato' => $objPartida->getCampeonato()->getIdCampeonato(), 'idPartida' => $objPartida->getIdPartida()]); ?>" class="btn btn-warning">Gerenciar</a>
             <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'edit', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-info">Editar</a>
             <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'remove', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-danger">Excluir</a>
           </td>

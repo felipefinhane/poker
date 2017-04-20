@@ -66,6 +66,22 @@ return array(
             ),
           ),
         ),
+      'partida_campeonato_manage' => array(
+        // 'type' => 'Zend\Mvc\Router\Http\Literal',
+        'type' => 'Segment',
+        'options' => array(
+          'route' => '/partida/:idCampeonato/manage/:idPartida',
+          'constraints' => array(
+            'idCampeonato' => '[0-9]+',
+            'idPartida' => '[0-9]+',
+            ), 
+          'defaults' => array(
+            '__NAMESPACE__' => 'Application\Controller',
+            'controller' => 'Partida',
+            'action' => 'manage',
+            ),
+          ),
+        ),
       'padrao' => array(
         'type' => 'Segment',
         'options' => array(
