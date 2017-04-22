@@ -66,6 +66,22 @@ return array(
             ),
           ),
         ),
+      'partida_campeonato_edit' => array(
+        // 'type' => 'Zend\Mvc\Router\Http\Literal',
+        'type' => 'Segment',
+        'options' => array(
+          'route' => '/partida/:idCampeonato/edit/:idPartida',
+          'constraints' => array(
+            'idCampeonato' => '[0-9]+',
+            'idPartida' => '[0-9]+',
+            ),
+          'defaults' => array(
+            '__NAMESPACE__' => 'Application\Controller',
+            'controller' => 'Partida',
+            'action' => 'manage',
+            ),
+          ),
+        ),
       'partida_campeonato_manage' => array(
         // 'type' => 'Zend\Mvc\Router\Http\Literal',
         'type' => 'Segment',
@@ -74,7 +90,7 @@ return array(
           'constraints' => array(
             'idCampeonato' => '[0-9]+',
             'idPartida' => '[0-9]+',
-            ), 
+            ),
           'defaults' => array(
             '__NAMESPACE__' => 'Application\Controller',
             'controller' => 'Partida',

@@ -27,7 +27,7 @@
           <td><?php echo $objPartida->getData(); ?></td>
           <td>
             <a href="<?php echo $this->url('partida_campeonato_manage', ['idCampeonato' => $objPartida->getCampeonato()->getIdCampeonato(), 'idPartida' => $objPartida->getIdPartida()]); ?>" class="btn btn-warning">Gerenciar</a>
-            <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'edit', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-info">Editar</a>
+            <a href="<?php echo $this->url('partida_campeonato_edit', ['idCampeonato' => $objPartida->getCampeonato()->getIdCampeonato(), 'idPartida' => $objPartida->getIdPartida()]); ?>" class="btn btn-info">Editar</a>
             <a href="<?php echo $this->url('padrao', array('controller' => 'partida', 'action' => 'remove', 'id' => $objPartida->getIdPartida())); ?>" class="btn btn-danger">Excluir</a>
           </td>
         </tr>
