@@ -80,6 +80,10 @@ class PartidaUsuarios {
   }
 
   public function getPago() {
+    $varRetorno = 0;
+    if($this->pago == 1){
+      $varRetorno = 'SIM';
+    }
     return $this->pago;
   }
 

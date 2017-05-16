@@ -1,19 +1,12 @@
 <div class="col-md-12">
-  <h1>Nova Partida</h1>
-  <h3><?php echo $objCampeonato->getTitulo(); ?></h3>
+  <h1>Gerenciamento de Partida</h1>
+  <h3><?php echo $objPartidaParticipantes[0]->getPartida()->getCampeonato()->getTitulo(); ?></h3>
 </div>
 <div class="col-md-12">
-  <?php echo $this->form()->openTag($formPartida); ?>
   <div class="col-md-2 ph0">
     <div class="form-group">
-      <label>Data</label>
-      <?php
-      echo $this->formInput($formPartida->get('id_partida'));
-      echo $this->formInput($formPartida->get('id_campeonato'));
-      echo $this->formInput($formPartida->get('data'));
-      echo $this->formInput($formPartida->get('participantes')->setValue(implode(',', $arrParticipantes)));
-      echo $this->formElementErrors()->render($formPartida->get('data'));
-      ?>
+      <label>Data:</label>
+      <?php echo $objPartidaParticipantes[0]->getPartida()->getData(); ?>
     </div>
   </div>
   <div class="col-md-12 ph0">
@@ -21,18 +14,30 @@
       <thead>
         <tr>
           <th>PARTICIPANTE</th>
+          <th>TAXA</th>
+          <th>POSICAO</th>
           <th>AÇÃO</th>
         </tr>
       </thead>
       <tbody>
-        <?php foreach ($objCampeonatoParticipantes as $objCampeonatoParticipante): ?>
-          <tr id=<?php echo $objCampeonatoParticipante->getIdCampeonatoUsuario(); ?>>
-            <td width="80%"><?php echo $objCampeonatoParticipante->getUsuario()->getNome(); ?></td>
-            <?php if(in_array($objCampeonatoParticipante->getIdCampeonatoUsuario(), $arrParticipantes)){ ?>
-              <td><span class="btn btn-success btnIncricao btn-block" data-rel="1">INSCRITO</span></td>
-            <?php }else{ ?>
-              <td><span class="btn btn-danger btnIncricao btn-block" data-rel="0">NÃO INSCRITO</span></td>
-            <?php } ?>
+        <?php foreach ($objPartidaParticipantes as $objParticipante): ?>
+          <tr id=<?php echo $objParticipante->getIdPartidaUsuario(); ?>>
+            <td width="60%"><?php echo $objParticipante->getParticipante()->getUsuario()->getNome(); ?></td>
+            <td width="10%">
+              <?php if ($objParticipante->getPago() == 0) { ?>
+                <a href="#" class="btn btn-danger">PAGAR</a>
+              <?php } else { ?>
+                <a href="#" class="btn btn-success">PAGO</a>
+              <?php } ?>
+            </td>
+            <td width="10%"><?php echo $objParticipante->getPosicao(); ?></td>
+            <td width="20%">
+              <?php if ($objParticipante->getPosicao() <= 0) { ?>
+                <a href="#" class="btn btn-warning">PERDEDOR</a>
+              <?php } else{ ?>
+                <a href="#" class="btn btn-primary">CORRIGIR</a>
+              <?php } ?>
+            </td>
           </tr>
         <?php endforeach; ?>
       </tbody>
@@ -40,79 +45,7 @@
   </div>
   <div class="col-md-12 ph0">
     <div class="form-group">
-      <a href="<?php echo $this->url('partida_campeonato', ['idCampeonato' => $objCampeonato->getIdCampeonato()]); ?>" class="btn btn-default">Voltar</a>
-      <?php
-      echo $this->formRow($formPartida->get('csrf'));
-      echo $this->formInput($formPartida->get('btn_submit'));
-      ?>
+      <a href="<?php echo $this->url('partida_campeonato', ['idCampeonato' => $objPartidaParticipantes[0]->getPartida()->getCampeonato()->getIdCampeonato()]); ?>" class="btn btn-default">Voltar</a>
     </div>
   </div>
-  <?php echo $this->form()->closeTag($formPartida); ?>
 </div>
-<?php
-$this->inlineScript()->captureStart();
-echo <<<JS
-$(function() {
-  $(".datepicker").datepicker({
-    dateFormat: 'dd/mm/yy',
-    dayNames: ['Domingo', 'Segunda', 'Terça', 'Quarta', 'Quinta', 'Sexta', 'Sábado'],
-    dayNamesMin: ['D', 'S', 'T', 'Q', 'Q', 'S', 'S', 'D'],
-    dayNamesShort: ['Dom', 'Seg', 'Ter', 'Qua', 'Qui', 'Sex', 'Sáb', 'Dom'],
-    monthNames: ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'],
-    monthNamesShort: ['Jan', 'Fev', 'Mar', 'Abr', 'Mai', 'Jun', 'Jul', 'Ago', 'Set', 'Out', 'Nov', 'Dez'],
-    nextText: 'Próximo',
-    prevText: 'Anterior'
-  });
-
-  function getParticipantes(){
-    var jsonParticipantes = $("#participantes").val();
-    var arrParticipantes = [];
-    if(jsonParticipantes.length > 3){
-      arrParticipantes = JSON.parse(jsonParticipantes);
-    }
-    return arrParticipantes;
-  }
-
-  function setParticipantes(arrParticipantes){
-    var jsonParticipantes = JSON.stringify(arrParticipantes);
-    $("#participantes").val(jsonParticipantes)
-  }
-
-  function inscreveParticipante(idParticipante){
-    var arrParticipantes = getParticipantes();
-    console.log(arrParticipantes);
-    arrParticipantes.push(idParticipante);
-    setParticipantes(arrParticipantes)
-  }
-
-  function removeParticipante(idParticipante){
-    var arrParticipantes = getParticipantes();
-    for(var i = arrParticipantes.length - 1; i >= 0; i--) {
-      if(arrParticipantes[i] === idParticipante) {
-       arrParticipantes.splice(i, 1);
-     }
-    }
-    setParticipantes(arrParticipantes)
-  }
-
-
-  $(".btnIncricao").on("click", function(){
-    var idParticipante = $(this).parent().parent().attr('id');
-    if($(this).hasClass("btn-success")){
-      $(this).removeClass("btn-success");
-      $(this).addClass("btn-danger");
-      $(this).attr("data-rel", 0);
-      $(this).html("NÃO INSCRITO");
-      removeParticipante(idParticipante);
-    }else{
-      $(this).removeClass("btn-danger");
-      $(this).addClass("btn-success");
-      $(this).attr("data-rel", 1);
-      $(this).html("INSCRITO");
-      inscreveParticipante(idParticipante);
-    }
-  });
-});
-JS;
-$this->inlineScript()->captureEnd();
-?>

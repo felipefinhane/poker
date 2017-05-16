@@ -78,7 +78,7 @@ return array(
           'defaults' => array(
             '__NAMESPACE__' => 'Application\Controller',
             'controller' => 'Partida',
-            'action' => 'manage',
+            'action' => 'edit',
             ),
           ),
         ),

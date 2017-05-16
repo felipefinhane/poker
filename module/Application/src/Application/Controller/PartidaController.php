@@ -144,38 +144,35 @@ class PartidaController extends AbstractActionController {
     $idCampeonato = $this->params('idCampeonato');
     $idPartida = $this->params('idPartida');
     if((!is_null($idCampeonato)) && (!is_null($idPartida))){
-      $formPartida = new \Application\Form\PartidaForm($this->objManager);
-      $request = $this->getRequest();
       $objPartidaParticipantes = $this->objManager->getRepository("Application\Entity\PartidaUsuarios")->getPartidaUsuarios($idPartida);
+      $request = $this->getRequest();
+      // if ($request->isPost()) {
+      //   $data = $request->getPost("data");
+      //   $objPartida = new \Application\Entity\Partida();
+      //   $objPartida->setData($data);
+      //   $objPartida->setCampeonato($objCampeonato);
+      //   //INSERIR PARTICIPANTES
+      //   $jsonParticipantes = $request->getPost("participantes");
+      //   $arrParticipantes = json_decode($jsonParticipantes);
 
-      $formPartidaParticipantes->bind($objCampeonato);
-      if ($request->isPost()) {
-        $data = $request->getPost("data");
-        $objPartida = new \Application\Entity\Partida();
-        $objPartida->setData($data);
-        $objPartida->setCampeonato($objCampeonato);
-        //INSERIR PARTICIPANTES
-        $jsonParticipantes = $request->getPost("participantes");
-        $arrParticipantes = json_decode($jsonParticipantes);
+      //   foreach ($arrParticipantes as $i => $participante) {
+      //     $objPartidaUsuarios = new \Application\Entity\PartidaUsuarios();
+      //     $objCampeonatoParticipante = $this->objManager->find("Application\Entity\CampeonatoUsuario", $participante);
+      //     $objPartidaUsuarios->setParticipante($objCampeonatoParticipante);
+      //     $objPartidaUsuarios->setPartida($objPartida);
+      //     $this->objManager->persist($objPartidaUsuarios);
+      //   }
+      //   $this->objManager->persist($objPartida);
+      //   // flush the remaining objects
+      //   $this->objManager->flush();
+      //   $this->objManager->clear();
+      //   //FIM INSERIR PARTICIPANTES
 
-        foreach ($arrParticipantes as $i => $participante) {
-          $objPartidaUsuarios = new \Application\Entity\PartidaUsuarios();
-          $objCampeonatoParticipante = $this->objManager->find("Application\Entity\CampeonatoUsuario", $participante);
-          $objPartidaUsuarios->setParticipante($objCampeonatoParticipante);
-          $objPartidaUsuarios->setPartida($objPartida);
-          $this->objManager->persist($objPartidaUsuarios);
-        }
-        $this->objManager->persist($objPartida);
-        // flush the remaining objects
-        $this->objManager->flush();
-        $this->objManager->clear();
-        //FIM INSERIR PARTICIPANTES
-
-        $this->flashMessenger()->addSuccessMessage("Partida Salvo com sucesso!");
-        return $this->redirect()->toRoute('partida_campeonato', ['idCampeonato' => $idCampeonato]);
-      }
+      //   $this->flashMessenger()->addSuccessMessage("Partida Salvo com sucesso!");
+      //   return $this->redirect()->toRoute('partida_campeonato', ['idCampeonato' => $idCampeonato]);
+      // }
       $viewParams = array(
-        'formPartidaParticipantes' => $formPartidaParticipantes,
+        // 'formPartidaParticipantes' => $formPartidaParticipantes,
         'objPartidaParticipantes' => $objPartidaParticipantes,
       );
       return new ViewModel($viewParams);
